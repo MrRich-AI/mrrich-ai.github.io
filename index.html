@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mr. Rich's IGCSE ESL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bungee&family=Cinzel:wght@700&family=Fredoka:wght@600;700&family=Mulish:wght@400;700;800&family=Nunito+Sans:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0f2c;
+    --text:#f5f7fa;
+    --sub:#b9c1d6;
+  }
+  *{box-sizing:border-box}
+  html{background:#0a0f2c}
+  html,body{margin:0}
+  body{
+    min-height:100vh;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    color:var(--text);
+    background:
+      radial-gradient(circle at 15% 8%, rgba(79,141,253,.28) 0, transparent 42%),
+      radial-gradient(circle at 88% 92%, rgba(230,57,70,.22) 0, transparent 45%),
+      radial-gradient(circle at 70% 30%, rgba(162,172,232,.12) 0, transparent 40%),
+      var(--bg);
+    background-attachment:fixed;
+    overflow-x:hidden;
+  }
+  /* faint star field */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.55;
+    background-image:
+      radial-gradient(1.4px 1.4px at 20px 30px,#fff,transparent),
+      radial-gradient(1px 1px at 90px 120px,#cfe0ff,transparent),
+      radial-gradient(1.2px 1.2px at 160px 60px,#fff,transparent),
+      radial-gradient(1px 1px at 230px 170px,#ffd6d6,transparent),
+      radial-gradient(1.3px 1.3px at 60px 200px,#fff,transparent);
+    background-size:260px 230px;
+  }
+  .page{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:22px 16px 48px}
+
+  header{text-align:center;margin-bottom:22px}
+  .logo-wrap{display:flex;justify-content:center;margin-bottom:2px}
+  #logoCanvas{display:block;width:100%;max-width:240px;height:auto;filter:drop-shadow(0 6px 14px rgba(0,0,0,.45))}
+  header h1{margin:0 0 6px;font-size:1.7rem;letter-spacing:.5px;text-shadow:0 2px 10px rgba(0,0,0,.5)}
+  header p{margin:0;color:var(--sub);font-size:1rem}
+
+  .grid{display:grid;grid-template-columns:1fr;gap:16px}
+  @media (min-width:640px){ .grid{grid-template-columns:repeat(2,1fr)} }
+  @media (min-width:1000px){ .grid{grid-template-columns:repeat(3,1fr)} }
+
+  /* ---------- shared tile frame ---------- */
+  a.tile{
+    position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;
+    min-height:190px;border-radius:18px;padding:20px 20px 16px;text-decoration:none;
+    box-shadow:0 12px 30px rgba(0,0,0,.45);transition:transform .15s, box-shadow .15s;
+    isolation:isolate;
+  }
+  a.tile:hover{transform:translateY(-4px)}
+  a.tile:focus-visible{outline:4px solid #ffc845;outline-offset:3px}
+  .tile .t-title{position:relative;z-index:1;margin:0;line-height:1.1}
+  .tile .t-sub{position:relative;z-index:1;margin:8px 0 0;font-size:.98rem}
+  .tile .t-go{position:relative;z-index:1;align-self:flex-start;margin-top:16px;font-weight:700;font-size:.92rem;
+    padding:7px 16px;border-radius:999px;display:inline-flex;align-items:center;gap:6px}
+  .tile .t-go::after{content:"\2192"}
+  .tile .t-num{position:absolute;top:12px;right:14px;z-index:1;font-size:.75rem;font-weight:800;letter-spacing:.08em;opacity:.7}
+
+  /* ---------- LESSONS (teal header, Fredoka / Mulish) ---------- */
+  .th-lessons{background:#0a8b99;color:#fff;font-family:"Mulish","Segoe UI",Arial,sans-serif}
+  .th-lessons::after{content:"";position:absolute;right:-50px;top:-50px;width:180px;height:180px;border-radius:50%;background:#06707c;opacity:.6;z-index:0}
+  .th-lessons::before{content:"";position:absolute;right:90px;bottom:-80px;width:140px;height:140px;border-radius:50%;background:#79c2cc;opacity:.35;z-index:0}
+  .th-lessons .t-title{font-family:"Fredoka",sans-serif;font-weight:700;font-size:2rem}
+  .th-lessons .t-sub{opacity:.95}
+  .th-lessons .t-go{background:#e6175c;color:#fff}
+
+  /* ---------- INCLASS (night purple, Bungee, cream card accent) ---------- */
+  .th-inclass{color:#fff;font-family:'Atkinson Hyperlegible',Arial,sans-serif;
+    background:radial-gradient(circle at 20% 10%,#3a1f80 0,transparent 55%),radial-gradient(circle at 85% 90%,#5a0f3a 0,transparent 55%),#0d0a24;
+    border:2px solid rgba(255,255,255,.12)}
+  .th-inclass .t-title{font-family:'Bungee',Impact,sans-serif;font-weight:400;font-size:1.85rem;text-shadow:0 3px 0 #b3123a}
+  .th-inclass .t-title em{font-style:normal;color:#f2b134;text-shadow:0 3px 0 #8a4a00}
+  .th-inclass .t-sub{color:#d6d2f0}
+  .th-inclass .t-go{background:#fffaf0;color:#14161f;border-left:6px solid #ff4f8b;border-radius:10px}
+
+  /* ---------- GAMES (sunset sky, fireworks) ---------- */
+  .th-games{color:#f5f7fa;
+    background:radial-gradient(ellipse at 50% 120%, #ff8a4c 0%, transparent 60%),
+      linear-gradient(180deg,#080a1e 0%,#1b1454 25%,#241454 45%,#7a2f6b 70%,#c1495a 90%,#ff8a4c 100%)}
+  .th-games::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(circle at 22% 28%, rgba(255,214,102,.9) 0 2px, transparent 3px),
+      radial-gradient(circle at 26% 22%, rgba(255,214,102,.7) 0 1.5px, transparent 2.5px),
+      radial-gradient(circle at 18% 22%, rgba(255,214,102,.7) 0 1.5px, transparent 2.5px),
+      radial-gradient(circle at 80% 20%, rgba(79,141,253,.9) 0 2px, transparent 3px),
+      radial-gradient(circle at 84% 26%, rgba(51,214,159,.8) 0 1.5px, transparent 2.5px),
+      radial-gradient(circle at 76% 26%, rgba(51,214,159,.8) 0 1.5px, transparent 2.5px),
+      radial-gradient(circle at 60% 12%, rgba(255,255,255,.8) 0 1.2px, transparent 2px)}
+  .th-games .t-title{font-weight:800;font-size:1.7rem;text-shadow:0 2px 10px rgba(0,0,0,.6)}
+  .th-games .t-sub{color:#e7e2f5;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+  .th-games .t-go{background:rgba(27,31,39,.85);color:#fff;border:1px solid #4f8dfd}
+
+  /* ---------- VOCAB (teal gradient, coral + gold circles) ---------- */
+  .th-vocab{color:#fff;font-family:Arial,Helvetica,sans-serif;
+    background:linear-gradient(135deg,#0F5C5C 0%,#0a4444 60%,#082f2f 100%)}
+  .th-vocab::before{content:"";position:absolute;right:-70px;top:-90px;width:220px;height:220px;border-radius:50%;background:rgba(194,84,45,.5);z-index:0}
+  .th-vocab::after{content:"";position:absolute;left:-60px;bottom:-110px;width:200px;height:200px;border-radius:50%;background:rgba(255,200,69,.16);z-index:0}
+  .th-vocab .t-title{font-weight:bold;font-size:1.9rem;color:#FFC845;text-shadow:0 3px 0 #6b3a10,0 6px 14px rgba(0,0,0,.45)}
+  .th-vocab .t-sub{color:#d9f2ef}
+  .th-vocab .t-go{background:#FFC845;color:#0b2a2a}
+
+  /* ---------- WORKBOOK G9 / G10 (photocopied paper, serif) ---------- */
+  .th-wb{color:#2e2c28;font-family:'Times New Roman',Times,Georgia,serif;background:#f3f1ea;border:2px solid #8f8a7c}
+  .th-wb::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.2  0 0 0 0 0.2  0 0 0 0 0.18  0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .th-wb::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse at 8% 5%, rgba(0,0,0,.07), transparent 45%),radial-gradient(ellipse at 95% 100%, rgba(0,0,0,.08), transparent 50%)}
+  .th-wb .t-title{font-weight:700;font-size:1.5rem;padding-bottom:8px;border-bottom:2px solid #8f8a7c}
+  .th-wb .t-grade{position:relative;z-index:1;display:block;margin-top:8px;font-size:1.25rem;font-weight:700}
+  .th-wb .t-sub{color:#5a564e;font-style:italic}
+  .th-wb .t-go{background:#faf9f4;color:#2e2c28;border:1.5px solid #8f8a7c;border-radius:6px;font-family:inherit}
+
+  /* ---------- MARKS (blue/yellow split, white crest card) ---------- */
+  .th-marks{color:#1a1f2b;font-family:'Nunito Sans',system-ui,sans-serif;
+    background:linear-gradient(90deg,#0a7dc2 0%,#0a7dc2 50%,#f2c91c 50%,#f2c91c 100%);padding:32px 14px 14px}
+  .th-marks .m-card{position:relative;z-index:1;flex:1;background:#fff;border-radius:16px;padding:14px 16px 14px;
+    box-shadow:0 8px 20px rgba(0,0,0,.18);display:flex;flex-direction:column;justify-content:space-between;border-top:6px solid #c41e2e}
+  .th-marks .m-head{display:flex;align-items:center;gap:12px}
+  .th-marks .m-head img{width:58px;height:58px;object-fit:contain;flex-shrink:0}
+  .th-marks .t-title{font-family:'Cinzel',Georgia,serif;font-weight:700;font-size:1.15rem;color:#c41e2e;line-height:1.15}
+  .th-marks .t-sub{color:#054a75;font-weight:700;margin-top:6px}
+  .th-marks .t-go{background:#e3f1fa;color:#054a75;border-radius:12px}
+  .th-marks .t-num{top:9px;color:#fff;opacity:1;text-shadow:0 1px 3px rgba(0,0,0,.4)}
+
+  /* ---------- BOARDS (navy, stars + diagonal stripes, 3D italic) ---------- */
+  .th-boards{color:#f5f7fa;background-color:#0e2a6e;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cpolygon points='0,-6 1.41,-1.94 5.71,-1.85 2.28,0.74 3.53,4.85 0,2.4 -3.53,4.85 -2.28,0.74 -5.71,-1.85 -1.41,-1.94' fill='%23ffffff' fill-opacity='0.8' transform='translate(20,25) rotate(10)'/%3E%3Cpolygon points='0,-6 1.41,-1.94 5.71,-1.85 2.28,0.74 3.53,4.85 0,2.4 -3.53,4.85 -2.28,0.74 -5.71,-1.85 -1.41,-1.94' fill='%23e63946' fill-opacity='0.9' transform='translate(80,40) scale(.8) rotate(-15)'/%3E%3Cpolygon points='0,-6 1.41,-1.94 5.71,-1.85 2.28,0.74 3.53,4.85 0,2.4 -3.53,4.85 -2.28,0.74 -5.71,-1.85 -1.41,-1.94' fill='%23ffffff' fill-opacity='0.7' transform='translate(50,95) scale(.7) rotate(30)'/%3E%3Cpolygon points='0,-6 1.41,-1.94 5.71,-1.85 2.28,0.74 3.53,4.85 0,2.4 -3.53,4.85 -2.28,0.74 -5.71,-1.85 -1.41,-1.94' fill='%23e63946' fill-opacity='0.8' transform='translate(105,100) scale(.6) rotate(45)'/%3E%3C/svg%3E"),
+      repeating-linear-gradient(45deg, rgba(230,57,70,.22) 0 10px, transparent 10px 46px, rgba(255,255,255,.14) 46px 56px, transparent 56px 92px)}
+  .th-boards .t-title{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:800;font-size:2rem;color:#4f8dfd;
+    text-shadow:1px 1px 0 #3f74d1,2px 2px 0 #2f5aa8,3px 3px 0 #234280,4px 4px 8px rgba(0,0,0,.5)}
+  .th-boards .t-sub{color:#dbe2f2;text-shadow:0 1px 4px rgba(0,0,0,.6)}
+  .th-boards .t-go{background:linear-gradient(135deg,#4f8dfd,#33d69f);color:#0b1530}
+
+  /* ---------- default tile for new repos ---------- */
+  .th-new{color:#f5f7fa;background:#1b1f27;border:1.5px solid #2c3240}
+  .th-new .t-title{font-weight:800;font-size:1.5rem;word-break:break-word}
+  .th-new .t-sub{color:#a9b1c0}
+  .th-new .t-go{background:#4f8dfd;color:#fff}
+  .th-new .t-badge{position:relative;z-index:1;align-self:flex-start;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    background:#33d69f;color:#062a1e;padding:3px 9px;border-radius:999px;margin-bottom:10px}
+
+  .status{text-align:center;color:var(--sub);font-size:.9rem;margin-top:18px;min-height:1.2em}
+  @media (prefers-reduced-motion:reduce){ a.tile{transition:none} a.tile:hover{transform:none} }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="logo-wrap"><canvas id="logoCanvas" aria-label="Mr Rich logo" role="img"></canvas></div>
+    <h1>IGCSE ESL</h1>
+    <p>Choose where you want to go</p>
+  </header>
+
+  <main class="grid" id="grid" aria-label="Sites"></main>
+  <p class="status" id="status" aria-live="polite"></p>
+</div>
+
+<script>
+/* =========================================================
+   Small animated "Mr Rich" logo (copied from the Games landing page)
+   ========================================================= */
+(() => {
+  const canvas = document.getElementById('logoCanvas');
+  const ctx = canvas.getContext('2d');
+
+  const K = 2;                                   // sprite resolution multiplier
+  const LX0 = 70, LY0 = 0, LW = 800, LH = 460;    // logical frame (from source logo)
+  const TEXT1 = 'Mr', TEXT2 = 'R1ch';
+  const FONT = "'Rockwell Extra Bold','Rockwell','Roboto Slab','Bookman Old Style','Cambria','Georgia','DejaVu Serif',serif";
+  const TAU = Math.PI * 2;
+
+  const makeCanvas = (w, h) => { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; };
+  const rgb = c => `rgb(${c[0]},${c[1]},${c[2]})`;
+
+  function starPts(R, r, rot) {
+    const p = [];
+    for (let i = 0; i < 10; i++) {
+      const a = -Math.PI / 2 + rot + i * Math.PI / 5, rad = i % 2 ? r : R;
+      p.push([Math.cos(a) * rad, Math.sin(a) * rad]);
+    }
+    return p;
+  }
+  function starPath(g, pts) {
+    g.beginPath();
+    pts.forEach((p, i) => i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]));
+    g.closePath();
+  }
+  function tri(g, a, b, c) { g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.lineTo(c[0], c[1]); g.closePath(); g.fill(); }
+
+  function newSprite(wL, hL, lx, ly) {
+    const c = makeCanvas(Math.ceil(wL * K), Math.ceil(hL * K)), g = c.getContext('2d');
+    g.scale(K, K);
+    return { c, g, wL, hL, lx, ly, t: makeCanvas(c.width, c.height), pivot: [lx + wL / 2, ly + hL / 2] };
+  }
+
+  function makeStar(cx, cy, R, rot, cA, cB) {
+    const pad = 36, size = 2 * (R + pad);
+    const s = newSprite(size, size, cx - size / 2, cy - size / 2);
+    const g = s.g; g.translate(size / 2, size / 2);
+    const pts = starPts(R, R * .46, rot);
+    g.lineJoin = 'round';
+
+    starPath(g, pts);
+    g.shadowColor = 'rgba(255,255,255,.95)'; g.shadowBlur = 9 * K;
+    g.strokeStyle = '#fff'; g.lineWidth = 12; g.stroke();
+    g.shadowBlur = 0; g.stroke();
+
+    const gr = g.createLinearGradient(-R * .6, -R, R * .6, R);
+    gr.addColorStop(0, rgb(cA)); gr.addColorStop(1, rgb(cB));
+    starPath(g, pts); g.fillStyle = gr; g.fill();
+
+    g.save(); starPath(g, pts); g.clip();
+    for (let i = 0; i < 10; i += 2) {
+      const tip = pts[i], l = pts[(i + 9) % 10], r = pts[(i + 1) % 10];
+      g.fillStyle = 'rgba(255,255,255,.17)'; tri(g, [0, 0], l, tip);
+      g.fillStyle = 'rgba(0,0,0,.06)'; tri(g, [0, 0], tip, r);
+    }
+    g.save(); g.translate(4, 4); starPath(g, pts); g.strokeStyle = 'rgba(255,255,255,.55)'; g.lineWidth = 14; g.stroke(); g.restore();
+    g.save(); g.translate(-4, -4); starPath(g, pts); g.strokeStyle = 'rgba(20,20,60,.22)'; g.lineWidth = 14; g.stroke(); g.restore();
+    const gl = g.createRadialGradient(-R * .35, -R * .45, 0, -R * .35, -R * .45, R * 1.1);
+    gl.addColorStop(0, 'rgba(255,255,255,.45)'); gl.addColorStop(1, 'rgba(255,255,255,0)');
+    g.fillStyle = gl; g.fillRect(-R * 1.5, -R * 1.5, R * 3, R * 3);
+    g.restore();
+
+    starPath(g, pts); g.strokeStyle = 'rgba(255,255,255,.9)'; g.lineWidth = 1.6; g.stroke();
+    return s;
+  }
+
+  function makeText(str, x, baseline, targetW) {
+    const m = document.createElement('canvas').getContext('2d');
+    let fs = 150; m.font = `900 ${fs}px ${FONT}`;
+    fs = Math.min(fs * targetW / m.measureText(str).width, 158);
+    m.font = `900 ${fs}px ${FONT}`;
+    const tw = m.measureText(str).width;
+    const asc = fs * .86, desc = fs * .24, pad = 36;
+    const wL = targetW + 2 * pad, hL = asc + desc + 2 * pad;
+    const s = newSprite(wL, hL, x - pad, baseline - asc - pad);
+    const g = s.g;
+    const off = Math.max(0, (targetW - tw) / 2);
+    g.font = `900 ${fs}px ${FONT}`; g.textBaseline = 'alphabetic'; g.lineJoin = 'round';
+    const tx = pad + off, ty = pad + asc;
+
+    g.strokeStyle = 'rgba(120,180,255,.95)'; g.lineWidth = 16;
+    g.shadowColor = 'rgba(100,170,255,1)'; g.shadowBlur = 12 * K;
+    g.strokeText(str, tx, ty);
+    g.shadowBlur = 0; g.lineWidth = 9; g.strokeStyle = 'rgba(196,224,255,.95)';
+    g.strokeText(str, tx, ty);
+
+    const bg = g.createLinearGradient(0, ty - asc * .8, 0, ty);
+    bg.addColorStop(0, '#4a86ea'); bg.addColorStop(.5, '#2458c6'); bg.addColorStop(1, '#1a45a5');
+    g.fillStyle = bg; g.fillText(str, tx, ty);
+    const gg = g.createLinearGradient(0, ty - asc * .8, 0, ty - asc * .2);
+    gg.addColorStop(0, 'rgba(255,255,255,.38)'); gg.addColorStop(1, 'rgba(255,255,255,0)');
+    g.fillStyle = gg; g.fillText(str, tx, ty);
+    g.lineWidth = 1.2; g.strokeStyle = 'rgba(10,30,110,.45)'; g.strokeText(str, tx, ty);
+    return s;
+  }
+
+  const S = {};
+  S.grey = makeStar(280, 178, 160, -.04, [238, 238, 240], [208, 208, 214]);
+  S.blue = makeStar(627, 187, 160, 0.0, [162, 172, 232], [204, 212, 248]);
+  S.red  = makeStar(452, 291, 146, .03, [255, 182, 182], [232, 116, 122]);
+  S.t1   = makeText(TEXT1, 110, 222, 240);
+  S.t2   = makeText(TEXT2, 272, 340, 446);
+
+  const els = [
+    { s: S.grey, osc: t => ({ r: .05 * Math.sin(t * 1.05), dx: 3 * Math.sin(t * .8 + 1), dy: 5 * Math.sin(t * 1.25 + .4), sc: 1 + .012 * Math.sin(t * 1.6) }) },
+    { s: S.blue, osc: t => ({ r: -.045 * Math.sin(t * .95 + 2), dx: -3 * Math.sin(t * .7), dy: 5 * Math.sin(t * 1.15 + 2), sc: 1 + .012 * Math.sin(t * 1.4 + 1) }) },
+    { s: S.red,  osc: t => ({ r: .04 * Math.sin(t * 1.2 + 4), dx: 2 * Math.sin(t * .9 + 2), dy: 6 * Math.sin(t * 1.35 + 3), sc: 1 + .014 * Math.sin(t * 1.5 + 2) }) },
+    { s: S.t1,   osc: t => ({ r: .012 * Math.sin(t * .9 + 3), dx: 2 * Math.sin(t * 1.1 + 1), dy: 3 * Math.sin(t * 1.5 + 1), sc: 1 }) },
+    { s: S.t2,   osc: t => ({ r: .010 * Math.sin(t * .9 + 3.4), dx: 2 * Math.sin(t * 1.0 + 2), dy: 3 * Math.sin(t * 1.5 + 1.6), sc: 1 }) }
+  ];
+
+  function band(tg, qc, bw, al) {
+    const a = qc - bw / 2, d = bw / 1.16;
+    const gr = tg.createLinearGradient(a, 0, a + d, .4 * d);
+    gr.addColorStop(0, 'rgba(255,255,255,0)'); gr.addColorStop(.5, `rgba(255,255,255,${al})`); gr.addColorStop(1, 'rgba(255,255,255,0)');
+    tg.fillStyle = gr; tg.fillRect(0, 0, tg.canvas.width, tg.canvas.height);
+  }
+  function sheened(s, qc) {
+    const q0 = s.lx + .4 * s.ly, q1 = s.lx + s.wL + .4 * (s.ly + s.hL), bw = 170;
+    if (qc + bw < q0 || qc - bw > q1) return s.c;
+    const tg = s.tg || (s.tg = s.t.getContext('2d'));
+    tg.setTransform(1, 0, 0, 1, 0, 0);
+    tg.globalCompositeOperation = 'source-over';
+    tg.clearRect(0, 0, s.t.width, s.t.height);
+    tg.drawImage(s.c, 0, 0);
+    tg.globalCompositeOperation = 'source-atop';
+    const qpx = (qc - s.lx - .4 * s.ly) * K;
+    band(tg, qpx, bw * K, .55);
+    band(tg, qpx, 42 * K, .85);
+    tg.globalCompositeOperation = 'source-over';
+    return s.t;
+  }
+
+  const SPOTS = [[278, 18], [627, 24], [452, 146], [783, 138], [186, 307], [364, 432], [540, 428], [140, 110], [700, 236], [330, 214], [520, 340], [246, 88]];
+  function glint(g, x, y, sz, a, spin) {
+    if (a < .03) return;
+    g.save(); g.translate(x, y); g.globalCompositeOperation = 'lighter'; g.globalAlpha = Math.min(1, a);
+    const rg = g.createRadialGradient(0, 0, 0, 0, 0, sz * .55);
+    rg.addColorStop(0, 'rgba(255,255,255,.95)'); rg.addColorStop(.35, 'rgba(210,235,255,.35)'); rg.addColorStop(1, 'rgba(180,220,255,0)');
+    g.fillStyle = rg; g.beginPath(); g.arc(0, 0, sz * .55, 0, TAU); g.fill();
+    g.fillStyle = 'rgba(255,255,255,.95)';
+    [[0, 1], [Math.PI / 2, 1], [Math.PI / 4, .5], [-Math.PI / 4, .5]].forEach(([r, k]) => {
+      g.save(); g.rotate(r + spin); g.beginPath();
+      g.moveTo(0, -sz * k); g.lineTo(sz * .09, 0); g.lineTo(0, sz * k); g.lineTo(-sz * .09, 0); g.closePath(); g.fill(); g.restore();
+    });
+    g.restore();
+  }
+
+  function renderLogo(g, t, k, ox, oy) {
+    g.save();
+    g.setTransform(k, 0, 0, k, ox - LX0 * k, oy - LY0 * k);
+
+    const qc = -260 + ((t * 220) % 2100);
+    const gcx = 470, gcy = 220;
+    g.translate(gcx, gcy + 5 * Math.sin(t * 1.3));
+    g.rotate(.03 * Math.sin(t * .9));
+    g.translate(-gcx, -gcy);
+
+    els.forEach(e => {
+      const o = e.osc(t), s = e.s, tex = sheened(s, qc);
+      g.save();
+      g.shadowColor = 'rgba(30,40,90,.38)'; g.shadowBlur = 16 * k; g.shadowOffsetX = 5 * k; g.shadowOffsetY = 9 * k;
+      g.translate(s.pivot[0] + o.dx, s.pivot[1] + o.dy); g.rotate(o.r); g.scale(o.sc, o.sc);
+      g.drawImage(tex, -s.wL / 2, -s.hL / 2, s.wL, s.hL);
+      g.restore();
+    });
+
+    SPOTS.forEach(([x, y], i) => {
+      const q = x + .4 * y;
+      const sweep = Math.exp(-Math.pow((qc - q) / 60, 2));
+      const tw = .5 + .5 * Math.sin(t * 2 + i * 1.7);
+      glint(g, x, y, 22 + (i % 4) * 8, sweep + .12 * tw * tw, t * .3 + i);
+    });
+    g.restore();
+  }
+
+  // Fixed internal resolution; CSS scales the element down responsively.
+  const CW = 780, CH = 450;
+  canvas.width = CW;
+  canvas.height = CH;
+
+  function frame(ts) {
+    const t = ts / 1000;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, CW, CH);
+    const k = Math.min(CW / LW, CH / LH) * .9;
+    renderLogo(ctx, t, k, (CW - LW * k) / 2, (CH - LH * k) / 2);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+/* =========================================================
+   Homepage tiles (hybrid: fixed order + new repos added at the end)
+   ========================================================= */
+(() => {
+  const OWNER = "MrRich-AI";
+  const PAGES = "https://mrrich-ai.github.io/";
+
+  // Your fixed order and tile designs. Edit titles/subtitles here.
+  // Any public repo NOT listed here appears automatically at the end.
+  const FIXED = [
+    { repo:"LESSONS",    theme:"lessons", title:"ESL Lessons",                 sub:"Choose your unit to see its lessons." },
+    { repo:"INCLASS",    theme:"inclass", title:"In-Class <em>Activities</em>", sub:"Pick a grade or Test Review, then an activity." },
+    { repo:"Games",      theme:"games",   title:"IGCSE ESL Games",             sub:"Vocabulary and grammar games by unit." },
+    { repo:"VOCAB",      theme:"vocab",   title:"Mr. Rich's Vocabulary",       sub:"Study, practise and play vocabulary decks." },
+    { repo:"ESL_WB_G9",  theme:"wb",      title:"IGCSE ESL Workbook Exercises", grade:"Grade 9",  sub:"Workbook exercises by unit." },
+    { repo:"ESL_WB_G10", theme:"wb",      title:"IGCSE ESL Workbook Exercises", grade:"Grade 10", sub:"Workbook exercises by unit." },
+    { repo:"MARKS",      theme:"marks",   title:"Royal International School",  sub:"Student Marks" },
+    { repo:"BOARDS",     theme:"boards",  title:"Class Boards",                sub:"Pick a board to join." }
+  ];
+
+  // Repos never shown (the homepage repo itself is always hidden too).
+  const HIDE = ["mrrich-ai.github.io"];
+
+  const grid = document.getElementById("grid");
+  const status = document.getElementById("status");
+  const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+  const lc = s => String(s).toLowerCase();
+  const isHidden = name => /\.github\.io$/i.test(name) || HIDE.some(h => lc(h) === lc(name));
+
+  function pagesUrl(name){ return PAGES + name + "/"; }
+
+  function fixedTile(cfg, n, apiRepo){
+    // Link to the GitHub Pages site; fall back to the repo page if Pages is off.
+    const url = (apiRepo && apiRepo.has_pages === false) ? apiRepo.html_url : pagesUrl(cfg.repo);
+    const num = '<span class="t-num">' + String(n).padStart(2, "0") + '</span>';
+    const go  = '<span class="t-go">Open</span>';
+    if (cfg.theme === "marks") {
+      return '<a class="tile th-marks" href="' + esc(url) + '">' + num +
+        '<div class="m-card"><div><div class="m-head">' +
+        '<img src="' + pagesUrl("MARKS") + 'logo.png" alt="" onerror="this.remove()">' +
+        '<h2 class="t-title">' + cfg.title + '</h2></div>' +
+        '<p class="t-sub">' + esc(cfg.sub) + '</p></div>' + go + '</div></a>';
+    }
+    return '<a class="tile th-' + cfg.theme + '" href="' + esc(url) + '">' + num +
+      '<div><h2 class="t-title">' + cfg.title + '</h2>' +
+      (cfg.grade ? '<span class="t-grade">' + esc(cfg.grade) + '</span>' : '') +
+      '<p class="t-sub">' + esc(cfg.sub) + '</p></div>' + go + '</a>';
+  }
+
+  function newTile(r, n){
+    const url = r.has_pages ? pagesUrl(r.name) : r.html_url;
+    const title = r.name.replace(/[_-]+/g, " ");
+    return '<a class="tile th-new" href="' + esc(url) + '">' +
+      '<span class="t-num">' + String(n).padStart(2, "0") + '</span>' +
+      '<div><span class="t-badge">New</span><h2 class="t-title">' + esc(title) + '</h2>' +
+      '<p class="t-sub">' + esc(r.description || "Open to explore.") + '</p></div>' +
+      '<span class="t-go">Open</span></a>';
+  }
+
+  function render(apiRepos){
+    const byName = {};
+    (apiRepos || []).forEach(r => { byName[lc(r.name)] = r; });
+
+    let html = "", n = 0;
+    FIXED.forEach(cfg => {
+      const r = byName[lc(cfg.repo)];
+      // If the repo list loaded and this repo is gone/private, skip it.
+      if (apiRepos && !r) return;
+      html += fixedTile(cfg, ++n, r);
+    });
+
+    if (apiRepos) {
+      const fixedNames = FIXED.map(f => lc(f.repo));
+      apiRepos
+        .filter(r => !r.private && !r.fork && !r.archived && !isHidden(r.name) && !fixedNames.includes(lc(r.name)))
+        .sort((a, b) => new Date(a.created_at) - new Date(b.created_at)) // oldest new repo first, newest at the very end
+        .forEach(r => { html += newTile(r, ++n); });
+    }
+    grid.innerHTML = html;
+  }
+
+  // Show the fixed tiles straight away, then add any new repos once GitHub answers.
+  render(null);
+  fetch("https://api.github.com/users/" + OWNER + "/repos?per_page=100&type=owner", { headers:{ "Accept":"application/vnd.github+json" } })
+    .then(res => { if (!res.ok) throw new Error(res.status); return res.json(); })
+    .then(list => { render(list); status.textContent = ""; })
+    .catch(() => { status.textContent = "Couldn't check GitHub for new sites right now. Showing the main list."; });
+})();
+</script>
+</body>
+</html>
