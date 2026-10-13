@@ -6,7 +6,7 @@
 <title>Mr. Rich's IGCSE ESL</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bungee&family=Cinzel:wght@700&family=Fredoka:wght@600;700&family=Mulish:wght@400;700;800&family=Nunito+Sans:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bungee&family=Cinzel:wght@700&family=Fredoka:wght@600;700&family=Mulish:wght@400;700;800&family=Nunito+Sans:wght@400;700;900&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#0a0f2c;
@@ -67,13 +67,17 @@
   .tile .t-go::after{content:"\2192"}
   .tile .t-num{position:absolute;top:12px;right:14px;z-index:1;font-size:.75rem;font-weight:800;letter-spacing:.08em;opacity:.7}
 
-  /* ---------- LESSONS (teal header, Fredoka / Mulish) ---------- */
-  .th-lessons{background:#0a8b99;color:#fff;font-family:"Mulish","Segoe UI",Arial,sans-serif}
-  .th-lessons::after{content:"";position:absolute;right:-50px;top:-50px;width:180px;height:180px;border-radius:50%;background:#06707c;opacity:.6;z-index:0}
-  .th-lessons::before{content:"";position:absolute;right:90px;bottom:-80px;width:140px;height:140px;border-radius:50%;background:#79c2cc;opacity:.35;z-index:0}
-  .th-lessons .t-title{font-family:"Fredoka",sans-serif;font-weight:700;font-size:2rem}
-  .th-lessons .t-sub{opacity:.95}
-  .th-lessons .t-go{background:#e6175c;color:#fff}
+  /* ---------- LESSONS (Academy: navy + gold, Source Serif / Source Sans) ---------- */
+  .th-lessons{color:#fff;font-family:"Source Sans 3",system-ui,sans-serif;
+    background:linear-gradient(135deg,#10243e 0%,#1b3658 100%);border-bottom:4px solid #c9a24a}
+  .th-lessons .l-head{position:relative;z-index:1;display:flex;align-items:center;gap:14px}
+  .th-lessons .l-crest{flex:0 0 50px;height:50px;border-radius:50%;border:2px solid #c9a24a;display:grid;place-items:center;color:#c9a24a;background:rgba(255,255,255,.04)}
+  .th-lessons .l-crest svg{width:26px;height:26px}
+  .th-lessons .l-kicker{display:block;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#c9a24a;margin-bottom:4px}
+  .th-lessons .t-title{font-family:"Source Serif 4",Georgia,serif;font-weight:700;font-size:1.9rem;letter-spacing:-.01em}
+  .th-lessons .t-sub{opacity:.85}
+  .th-lessons .t-go{background:#c9a24a;color:#10243e;border-radius:6px}
+  .th-lessons .t-num{color:#c9a24a;opacity:1}
 
   /* ---------- INCLASS (night purple, Bungee, cream card accent) ---------- */
   .th-inclass{color:#fff;font-family:'Atkinson Hyperlegible',Arial,sans-serif;
@@ -400,6 +404,12 @@
     const url = (apiRepo && apiRepo.has_pages === false) ? apiRepo.html_url : pagesUrl(cfg.repo);
     const num = '<span class="t-num">' + String(n).padStart(2, "0") + '</span>';
     const go  = '<span class="t-go">Open</span>';
+    if (cfg.theme === "lessons") {
+      return '<a class="tile th-lessons" href="' + esc(url) + '">' + num +
+        '<div><div class="l-head"><span class="l-crest" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8l10-5 10 5-10 5-10-5z"/><path d="M6 10v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/><path d="M22 8v6"/></svg></span>' +
+        '<div><span class="l-kicker">Cambridge IGCSE \u00b7 ESL</span><h2 class="t-title">' + cfg.title + '</h2></div></div>' +
+        '<p class="t-sub">' + esc(cfg.sub) + '</p></div>' + go + '</a>';
+    }
     if (cfg.theme === "marks") {
       return '<a class="tile th-marks" href="' + esc(url) + '">' + num +
         '<div class="m-card"><div><div class="m-head">' +
