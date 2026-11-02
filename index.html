@@ -369,14 +369,23 @@
 })();
 
 /* =========================================================
-   Homepage tiles (hybrid: fixed order + new repos added at the end)
+   Homepage tiles: one per site, linking to its Cloudflare Pages copy
    ========================================================= */
 (() => {
-  const OWNER = "MrRich-AI";
-  const PAGES = "https://mrrich-ai.github.io/";
+  // Cloudflare Pages address for each site (the GitHub repos are private).
+  // Adding a new site: add its address here and a tile to FIXED below.
+  const SITES = {
+    LESSONS:    "https://mrrich-ai-lessons.pages.dev/",
+    INCLASS:    "https://mrrich-ai-inclass.pages.dev/",
+    Games:      "https://mrrich-ai-games.pages.dev/",
+    VOCAB:      "https://mrrich-ai-vocab.pages.dev/",
+    ESL_WB_G9:  "https://mrrich-ai-g9-wb.pages.dev/",
+    ESL_WB_G10: "https://mrrich-ai-g10-wb.pages.dev/",
+    MARKS:      "https://mrrich-ai-marks.pages.dev/",
+    BOARDS:     "https://mrrich-ai-boards.pages.dev/"
+  };
 
-  // Your fixed order and tile designs. Edit titles/subtitles here.
-  // Any public repo NOT listed here appears automatically at the end.
+  // Tile order and designs. Edit titles/subtitles here.
   const FIXED = [
     { repo:"LESSONS",    theme:"lessons", title:"ESL Lessons",                 sub:"Choose your unit to see its lessons." },
     { repo:"INCLASS",    theme:"inclass", title:"In-Class <em>Activities</em>", sub:"Pick a grade or Test Review, then an activity." },
@@ -397,11 +406,10 @@
   const lc = s => String(s).toLowerCase();
   const isHidden = name => /\.github\.io$/i.test(name) || HIDE.some(h => lc(h) === lc(name));
 
-  function pagesUrl(name){ return PAGES + name + "/"; }
+  function pagesUrl(name){ return SITES[name] || "#"; }
 
   function fixedTile(cfg, n, apiRepo){
-    // Link to the GitHub Pages site; fall back to the repo page if Pages is off.
-    const url = (apiRepo && apiRepo.has_pages === false) ? apiRepo.html_url : pagesUrl(cfg.repo);
+    const url = pagesUrl(cfg.repo);
     const num = '<span class="t-num">' + String(n).padStart(2, "0") + '</span>';
     const go  = '<span class="t-go">Open</span>';
     if (cfg.theme === "lessons") {
@@ -455,12 +463,7 @@
     grid.innerHTML = html;
   }
 
-  // Show the fixed tiles straight away, then add any new repos once GitHub answers.
   render(null);
-  fetch("https://api.github.com/users/" + OWNER + "/repos?per_page=100&type=owner", { headers:{ "Accept":"application/vnd.github+json" } })
-    .then(res => { if (!res.ok) throw new Error(res.status); return res.json(); })
-    .then(list => { render(list); status.textContent = ""; })
-    .catch(() => { status.textContent = "Couldn't check GitHub for new sites right now. Showing the main list."; });
 })();
 </script>
 </body>
