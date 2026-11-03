@@ -162,6 +162,18 @@
   @keyframes dfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
   @media (prefers-reduced-motion:reduce){ .th-docs .d-deco i{animation:none} }
 
+  /* ---------- WRITING (open lined notebook, red margin, punched holes) ---------- */
+  .th-write{color:#1f2a44;font-family:Georgia,'Times New Roman',serif;background-color:#fdfcf7;
+    background-image:repeating-linear-gradient(to bottom,transparent 0 27px,#b9d3ea 27px 28px);background-position:0 14px;
+    border:2px solid #c8cfdb;padding-left:56px}
+  .th-write::before{content:"";position:absolute;top:0;bottom:0;left:40px;width:2px;background:#e48a8a;z-index:0}
+  .th-write::after{content:"";position:absolute;left:12px;top:22%;width:14px;height:56%;z-index:0;
+    background:radial-gradient(circle,#c9c2b2 0 6px,transparent 7px) 0 0/14px 33.3% repeat-y}
+  .th-write .t-title{font-weight:700;font-size:1.85rem}
+  .th-write .t-sub{color:#4a5570;font-style:italic}
+  .th-write .t-go{background:#1f2a44;color:#fdfcf7;border-radius:6px;font-family:inherit}
+  .th-write .t-num{color:#c0504d;opacity:1}
+
   /* ---------- default tile for new repos ---------- */
   .th-new{color:#f5f7fa;background:#1b1f27;border:1.5px solid #2c3240}
   .th-new .t-title{font-weight:800;font-size:1.5rem;word-break:break-word}
@@ -399,7 +411,8 @@
     MARKS:      "https://mrrich-ai-marks.pages.dev/",
     BOARDS:     "https://mrrich-ai-boards.pages.dev/",
     "Aden-Mia": "https://mrrich-ai-aden-mia.pages.dev/",
-    DOCS:       "https://mrrich-ai-docs.pages.dev/"
+    DOCS:       "https://mrrich-ai-docs.pages.dev/",
+    "WRITING-INPUTS": "https://mrrich-ai-writing.pages.dev/"
   };
 
   // Tile order and designs. Edit titles/subtitles here.
@@ -413,7 +426,8 @@
     { repo:"MARKS",      theme:"marks",   title:"Royal International School",  sub:"Student Marks" },
     { repo:"BOARDS",     theme:"boards",  title:"Class Boards",                sub:"Pick a board to join." },
     { repo:"Aden-Mia",   theme:"new",     title:"Aden &amp; Mia's Games",       sub:"Maps, continents and elements." },
-    { repo:"DOCS",       theme:"docs",    title:"DOCS",                        sub:"Choose a unit to see its documents and forms." }
+    { repo:"DOCS",       theme:"docs",    title:"DOCS",                        sub:"Choose a unit to see its documents and forms." },
+    { repo:"WRITING-INPUTS", theme:"write", title:"IGCSE ESL Writing", sub:"Choose your grade, then a writing task." }
   ];
 
   // Repos never shown (the homepage repo itself is always hidden too).
