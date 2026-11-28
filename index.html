@@ -215,6 +215,14 @@
   .th-scribe .t-go{background:#f59e0b;color:#16213a;border-radius:6px;font-family:"Courier New",Courier,monospace;font-weight:700}
   .th-scribe .t-num{color:#f59e0b;opacity:1}
 
+  /* ---------- STYLUS (slate page, the title underlined by a pen stroke) ---------- */
+  .th-stylus{color:#f8fafc;background:#0f172a;border:2px solid #1d4ed8}
+  .th-stylus .t-title{font-weight:800;font-size:2rem;letter-spacing:.16em;display:inline-block;padding-bottom:6px;
+    background:linear-gradient(90deg,#93c5fd,#1d4ed8) left bottom/100% 4px no-repeat;border-radius:0 0 4px 0}
+  .th-stylus .t-sub{color:#cbd5e1}
+  .th-stylus .t-go{background:#93c5fd;color:#0f172a;font-weight:800}
+  .th-stylus .t-num{color:#93c5fd;opacity:1}
+
   /* ---------- default tile for new repos ---------- */
   .th-new{color:#f5f7fa;background:#1b1f27;border:1.5px solid #2c3240}
   .th-new .t-title{font-weight:800;font-size:1.5rem;word-break:break-word}
@@ -456,6 +464,7 @@
     DOCS:       "https://mrrich-ai-docs.pages.dev/",
     "WRITING-INPUTS": "https://mrrich-ai-writing.pages.dev/",
     SCRIBE:     "https://mrrich-ai-scribe.pages.dev/",
+    STYLUS:     "https://stylus-44w.pages.dev/",
     "DASHBOARD-": "https://dashboard-apb.pages.dev/teacher/"   // Teacher Hub (the student page is the site's root)
   };
 
@@ -474,7 +483,8 @@
     { repo:"WRITING-INPUTS", theme:"write", title:"WRITING INPUTS", sub:"Choose your grade, then a writing task." },
     { repo:"SCRIBE",     theme:"scribe",  title:"SCRIBE",                      sub:"Choose your class, then a writing task." },
     { repo:"MARKS",      theme:"marks",   title:"Royal International School",  sub:"Student Marks" },
-    { repo:"Aden-Mia",   theme:"new",     title:"Aden &amp; Mia's Games",       sub:"Maps, continents and elements." }
+    { repo:"Aden-Mia",   theme:"new",     title:"Aden &amp; Mia's Games",       sub:"Maps, continents and elements." },
+    { repo:"STYLUS",     theme:"stylus",  title:"STYLUS",                      sub:"Teacher Portal and the writing Diagnostic." }
   ];
 
   // Repos never shown (the homepage repo itself is always hidden too).
