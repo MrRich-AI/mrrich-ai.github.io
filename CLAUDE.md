@@ -7,3 +7,5 @@ Richard's single landing page with a tile per site. Students are never given thi
 ## Tile order (Richard, Nov 28 2026)
 - New sites are added at the end, **except** the student dashboard: its tile (repo **DASHBOARD-**, "Teacher Hub", Royal
   Shield navy + gold, links to `https://dashboard-apb.pages.dev/teacher/`) is the **second** tile, after ESL Lessons.
+- **Teacher Hub copy (Nov 29 2026):** the Teacher Hub's navy menu lists every tile (Landing page ▾). Whenever a tile is added,
+  renamed, moved or removed here, update the `LANDING` list in DASHBOARD-/teacher/index.html in the same step.
