@@ -67,6 +67,18 @@
   .tile .t-go::after{content:"\2192"}
   .tile .t-num{position:absolute;top:12px;right:14px;z-index:1;font-size:.75rem;font-weight:800;letter-spacing:.08em;opacity:.7}
 
+  /* ---------- DASHBOARD- (Royal Shield: navy #0d2257 + gold #d4a52a, the student dashboard's S1 look) ---------- */
+  .th-dash{color:#fff;font-family:Inter,"Segoe UI",system-ui,sans-serif;background:linear-gradient(160deg,#0d2257 0%,#16357f 100%);border-bottom:4px solid #d4a52a}
+  .th-dash .s-head{position:relative;z-index:1;display:flex;align-items:center;gap:14px}
+  .th-dash .s-crest{flex:0 0 40px;height:48px;background:#d4a52a;clip-path:polygon(0 0,100% 0,100% 60%,50% 100%,0 60%);display:flex;justify-content:center;padding-top:9px;font-weight:800;color:#0d2257;font-size:1.05rem}
+  .th-dash .s-kicker{display:block;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#e9c45a;margin-bottom:4px}
+  .th-dash .t-title{font-weight:800;font-size:1.7rem;letter-spacing:-.01em}
+  .th-dash .t-sub{color:#d5dcf0}
+  .th-dash .t-go{background:#d4a52a;color:#0d2257;border-radius:10px}
+  .th-dash .t-num{color:#e9c45a;opacity:1}
+  .th-dash .s-ring{position:absolute;right:18px;bottom:16px;width:58px;height:58px;border-radius:50%;background:conic-gradient(#d4a52a 70%,rgba(255,255,255,.18) 0);opacity:.9}
+  .th-dash .s-ring::after{content:"";position:absolute;inset:9px;border-radius:50%;background:#14306f}
+
   /* ---------- LESSONS (Academy: navy + gold, Source Serif / Source Sans) ---------- */
   .th-lessons{color:#fff;font-family:"Source Sans 3",system-ui,sans-serif;
     background:linear-gradient(135deg,#10243e 0%,#1b3658 100%);border-bottom:4px solid #c9a24a}
@@ -443,12 +455,14 @@
     "Aden-Mia": "https://mrrich-ai-aden-mia.pages.dev/",
     DOCS:       "https://mrrich-ai-docs.pages.dev/",
     "WRITING-INPUTS": "https://mrrich-ai-writing.pages.dev/",
-    SCRIBE:     "https://mrrich-ai-scribe.pages.dev/"
+    SCRIBE:     "https://mrrich-ai-scribe.pages.dev/",
+    "DASHBOARD-": "https://mrrich-ai-dashboard.pages.dev/teacher/"   // Teacher Hub (the student page is the site's root)
   };
 
   // Tile order and designs. Edit titles/subtitles here.
   const FIXED = [
     { repo:"LESSONS",    theme:"lessons", title:"ESL Lessons",                 sub:"Choose your unit to see its lessons." },
+    { repo:"DASHBOARD-", theme:"dash",    title:"Teacher Hub",                 sub:"Post tasks and deadlines; see who has finished. Students use the student dashboard." },
     { repo:"INCLASS",    theme:"inclass", title:"In-Class <em>Activities</em>", sub:"Pick a grade or Test Review, then an activity." },
     { repo:"Games",      theme:"games",   title:"IGCSE ESL Games",             sub:"Vocabulary and grammar games by unit." },
     { repo:"VOCAB",      theme:"vocab",   title:"Mr. Rich's Vocabulary",       sub:"Study, practise and play vocabulary decks." },
@@ -483,6 +497,12 @@
         '<div><div class="l-head"><span class="l-crest" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8l10-5 10 5-10 5-10-5z"/><path d="M6 10v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/><path d="M22 8v6"/></svg></span>' +
         '<div><span class="l-kicker">Cambridge IGCSE \u00b7 ESL</span><h2 class="t-title">' + cfg.title + '</h2></div></div>' +
         '<p class="t-sub">' + esc(cfg.sub) + '</p></div>' + go + '</a>';
+    }
+    if (cfg.theme === "dash") {
+      return '<a class="tile th-dash" href="' + esc(url) + '">' + num +
+        '<div><div class="s-head"><span class="s-crest" aria-hidden="true">R</span>' +
+        '<div><span class="s-kicker">Student dashboard \u00b7 Mr. Rich</span><h2 class="t-title">' + cfg.title + '</h2></div></div>' +
+        '<p class="t-sub">' + esc(cfg.sub) + '</p></div>' + go + '<span class="s-ring" aria-hidden="true"></span></a>';
     }
     if (cfg.theme === "docs") {
       return '<a class="tile th-docs" href="' + esc(url) + '">' + num +
