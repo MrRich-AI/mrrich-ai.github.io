@@ -6,4 +6,4 @@ Richard's single landing page with a tile per site. Students are never given thi
 
 ## Tile order (Richard, Nov 28 2026)
 - New sites are added at the end, **except** the student dashboard: its tile (repo **DASHBOARD-**, "Teacher Hub", Royal
-  Shield navy + gold, links to `https://mrrich-ai-dashboard.pages.dev/teacher/`) is the **second** tile, after ESL Lessons.
+  Shield navy + gold, links to `https://dashboard-apb.pages.dev/teacher/`) is the **second** tile, after ESL Lessons.
